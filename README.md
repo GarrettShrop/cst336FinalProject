@@ -18,3 +18,8 @@ git push origin your branch name
 ex: git push origin Garrett
 that pushes your changes to your branch on github
 
+to run the server on your computer type in your terminal in the project: npm start
+
+then just go to local host and you will see the page
+
+
