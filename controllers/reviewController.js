@@ -13,3 +13,7 @@ exports.create = async (req, res, next) => {
         next(err);
     }
 };
+
+exports.mainPage = async (req, res, next) => {
+    res.render('reviews');
+};
