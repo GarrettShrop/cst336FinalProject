@@ -1,0 +1,10 @@
+{
+    "station1": {
+        "brand": "chevron",
+        "premium": 5.00 
+    },
+    "station2": {
+        "brand": "chevron",
+        "premium": 5.00 
+    }
+}
