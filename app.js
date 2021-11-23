@@ -24,6 +24,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/reviews', reviewRouter)
 app.use('/', stationsRouter);
+app.use ('/auth', authRouter);
 
 // app.use('/users', usersRouter);
 
