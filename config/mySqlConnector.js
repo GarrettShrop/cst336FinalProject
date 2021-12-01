@@ -13,6 +13,13 @@ let pool = mysql.createPool({
     database : DBDatabase
 });
 
-pool.query = util.promisify(pool.query);
+var getConnection = function(callback) {
+    pool.getConnection(function(err, connection) {
+        callback(err, connection);
+    });
+};
 
-module.exports = pool;
+module.exports = getConnection;
+
+// pool.query = util.promisify(pool.query);
+
