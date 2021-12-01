@@ -1,0 +1,28 @@
+extends layout
+
+//- block link
+//-     -var active = 'Login';
+
+block content
+    header(class='p-2 text-center')
+        a(href="/", class='a-header')
+            img(src="../images/flame.png", alt="Logo")
+            h1= "FuelFinder"
+            p Gas Stations and Prices
+        
+    main(class='container')
+        form(method="POST" action='/auth/register' id='newAccountForm')
+            if login_error
+                div(class='alert alert-danger' role='alert')= login_error
+            div(class='form-group')
+                label(for='username') New Username
+                input.form-control(type='text'  class=(typeof username_error === "undefined" ? "" : "is-invalid") id='username' name='username' placeholder='username' required)
+                div(class='invalid-feedback' id='usernameFeedback')= username_error
+            div(class='form-group')
+                label(for='password') New Password
+                input.form-control(type='password' class=(typeof password_error === "undefined" ? "" : "is-invalid") id='password' name='password' placeholder='password' required)
+                div(class='invalid-feedback' id='passwordFeedback')= password_error
+            div(class='column')
+                div
+                    button(type='submit' formaction='/auth/register' class='btn btn-block btn-outline-secondary' id="register") Create New Account
+            

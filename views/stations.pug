@@ -2,18 +2,29 @@ extends layout
 
 
 block content
-  header(class='p-5 text-center')
-    img(src="images/flame.png", alt="Logo")
-    h1= "FuelFinder"
-    p Gas Stations and Prices
+  header(class='p-2 text-center')
+    a(href="/", class='a-header') 
+      img(src="images/flame.png", alt="Logo")
+      h1= "FuelFinder"
+      p Gas Stations and Prices
 
   nav(id='navbar') 
     a(href="http://localhost:3000/auth/login", class='navbtn') Login 
-    a(href="", class='navbtn') Create an Account
+    //- needs to be hidden unless logged in. Some kind of if statement needs to be used to check if logged in.
+    a(href="", class='navbtn') Logout 
+    //-------------------------------------------
+    a(href="http://localhost:3000/auth/create-account", class='navbtn') Create an Account
+    a(href="/", class='navbtn') Home
+    //- These need to be hidden unless logged in
+    a(href="", class='navbtn') Profile
+    a(href="", class='navbtn') Add a Station
+    //-------------------------------------------
 
   main 
-    h2 Gas Stations 
-    ul(class='list-group')
-      li(class='list-group-item')
-        p Station Name 
-        button Price and Location
+    div(class='center')
+      h2 Gas Stations 
+      div
+        ul(class='list-group')
+          li(class='list-group-item')
+            p Station Name 
+            button Price and Location
