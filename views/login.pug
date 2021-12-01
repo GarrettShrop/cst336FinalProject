@@ -1,13 +1,14 @@
-extends layout.pug
+extends layout
 
 //- block link
 //-     -var active = 'Login';
 
 block content
-    header(class='p-5 text-center')
-        img(src="images/flame.png", alt="Logo")
-        h1= "FuelFinder"
-        p Gas Stations and Prices
+    header(class='p-2 text-center')
+        a(href="/", class='a-header')
+            img(src="../images/flame.png", alt="Logo")
+            h1= "FuelFinder"
+            p Gas Stations and Prices
         
     main(class='container')
         form(method="POST" action='/auth/login' id='loginForm')
@@ -19,11 +20,13 @@ block content
                 div(class='invalid-feedback' id='usernameFeedback')= username_error
             div(class='form-group')
                 label(for='password') Password
-                small(class='text-muted')  8 or more characters.
                 input.form-control(type='password' class=(typeof password_error === "undefined" ? "" : "is-invalid") id='password' name='password' placeholder='password' required)
                 div(class='invalid-feedback' id='passwordFeedback')= password_error
-            div(class='row')
-                div(class='col-md-6')
-                    button(type='submit' formaction='/auth/create' class='btn btn-block btn-outline-secondary' id="create") Create
-                div(class='col-md-6')
+            div(class='column')
+                div
                     button(type='submit' formaction='/auth/login' class='btn btn-block btn-primary' id='login') Login
+
+        form(method="GET" action='/auth/create-account' id='newAccountBtn')
+            div(class='column')
+                div
+                    button(type='submit' formaction='/auth/create-account' class='btn btn-block btn-outline-secondary' id="register") Create New Account
