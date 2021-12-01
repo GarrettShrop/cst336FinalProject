@@ -1,5 +1,5 @@
 {
-  "name": "finalproject",
+  "name": "myapp",
   "version": "0.0.0",
   "private": true,
   "scripts": {
@@ -11,8 +11,22 @@
     "debug": "~2.6.9",
     "express": "~4.16.1",
     "http-errors": "~1.6.3",
-    "jade": "^0.29.0",
     "jquery": "^3.6.0",
-    "morgan": "~1.9.1"
-  }
+    "morgan": "~1.9.1",
+    "mysql": "^2.18.1",
+    "pug": "^3.0.2"
+  },
+  "description": "Summary: Website that allows a user to make and login to account and find the best gas station with the lowest prices and allows to favorite different stations and leave a rating or comment on a station.",
+  "main": "app.js",
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GarrettShrop/cst336FinalProject.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/GarrettShrop/cst336FinalProject/issues"
+  },
+  "homepage": "https://github.com/GarrettShrop/cst336FinalProject#readme"
 }

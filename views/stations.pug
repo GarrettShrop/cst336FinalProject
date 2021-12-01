@@ -1,0 +1,19 @@
+extends layout 
+
+
+block content
+  header(class='p-5 text-center')
+    img(src="images/flame.png", alt="Logo")
+    h1= "FuelFinder"
+    p Gas Stations and Prices
+
+  nav(id='navbar') 
+    a(href="http://localhost:3000/auth/login", class='navbtn') Login 
+    a(href="", class='navbtn') Create an Account
+
+  main 
+    h2 Gas Stations 
+    ul(class='list-group')
+      li(class='list-group-item')
+        p Station Name 
+        button Price and Location

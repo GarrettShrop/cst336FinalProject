@@ -1,0 +1,29 @@
+extends layout.pug
+
+//- block link
+//-     -var active = 'Login';
+
+block content
+    header(class='p-5 text-center')
+        img(src="images/flame.png", alt="Logo")
+        h1= "FuelFinder"
+        p Gas Stations and Prices
+        
+    main(class='container')
+        form(method="POST" action='/auth/login' id='loginForm')
+            if login_error
+                div(class='alert alert-danger' role='alert')= login_error
+            div(class='form-group')
+                label(for='username') Username
+                input.form-control(type='text'  class=(typeof username_error === "undefined" ? "" : "is-invalid") id='username' name='username' placeholder='username' required)
+                div(class='invalid-feedback' id='usernameFeedback')= username_error
+            div(class='form-group')
+                label(for='password') Password
+                small(class='text-muted')  8 or more characters.
+                input.form-control(type='password' class=(typeof password_error === "undefined" ? "" : "is-invalid") id='password' name='password' placeholder='password' required)
+                div(class='invalid-feedback' id='passwordFeedback')= password_error
+            div(class='row')
+                div(class='col-md-6')
+                    button(type='submit' formaction='/auth/register' class='btn btn-block btn-outline-secondary' id="register") Register
+                div(class='col-md-6')
+                    button(type='submit' formaction='/auth/login' class='btn btn-block btn-primary' id='login') Login
