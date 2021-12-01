@@ -22,4 +22,16 @@ to run the server on your computer type in your terminal in the project: npm sta
 
 then just go to local host and you will see the page
 
+### To push to master
 
+Step 1:
+After pushing to your own branch, git checkout master
+
+Step 2:
+git merge {your branch name}
+
+Step 3:
+git push origin master
+
+Step 4:
+Make sure to go back to your own branch when you're done - git checkout {your branch name}
