@@ -1,0 +1,32 @@
+extends layout
+
+block content
+    header(class='p-2 text-center')
+        a(href="/", class='a-header')
+            img(src="../images/flame.png", alt="Logo")
+            h1= "FuelFinder"
+            p Gas Stations and Prices
+
+    main(class='container')
+        form(method="POST" action='/stations/create-station' id='newStationForm')
+            div(class='form-group')
+                label(for='address') Enter Address
+                input.form-control(type='text' id='address' name='address' placeholder='address' required)
+            div(class='form-group')
+                label(for='brand') Enter Brand
+                input.form-control(type='text' id='brand' name='brand' placeholder='brand' required)
+            div(class='form-group')
+                label(for='regular') Enter Regular Fuel Price
+                input.form-control(type='float' id='regular' name='regular' placeholder='ex: 0.00' required)
+            div(class='form-group')
+                label(for='super') Enter super Fuel Price
+                input.form-control(type='float' id='super' name='super' placeholder='ex: 0.00' required)
+            div(class='form-group')
+                label(for='premium') Enter Premium Fuel Price
+                input.form-control(type='float' id='premium' name='premium' placeholder='ex: 0.00' required)
+            div(class='form-group')
+                label(for='diesel') Enter diesel Fuel Price
+                input.form-control(type='float' id='diesel' name='diesel' placeholder='ex: 0.00' required)
+            div(class='column')
+                div
+                   button(type='submit' formaction='/create' class='btn btn-block btn-outline-secondary' id="create-station") Create a New Station

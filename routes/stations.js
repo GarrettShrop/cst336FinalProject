@@ -7,7 +7,7 @@ const {createStation} = require("../controllers/stationsController");
 
 router.get('/', stationsController.stationsPage);
 
-router.get('/create-station', stationsController.create);
+router.get('/create-station', stationsController.createStationPage);
 
 router.post('/create', stationsController.create);
 
