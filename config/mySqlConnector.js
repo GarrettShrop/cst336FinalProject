@@ -1,25 +1,30 @@
 const mysql = require('mysql');
 const util = require('util');
-const {DBHost, DBUser, DBPassword, DBDatabase} = require('./config');
+const {DBHost, DBUser, DBPassword, DBDatabase,JAWDB_URL} = require('./config');
 
-// const connection = mysql.createConnection(process.env.'mysql://jox7vgipufqsc9yd:yuea4xnzkocghi8v@x8autxobia7sgh74.cbetxkdyhwsb.us-east-1.rds.amazonaws.com:3306/rwl3mosgwuhr2n4s')
+var connection = mysql.createConnection(process.env.JAWSDB_URL);
+
+// var connection = mysql.createConnection(process.env.JAWDB_URL);
 // connection.connect();
 
-let pool = mysql.createPool({
-    connectionLimit : 10,
-    host : DBHost,
-    username : DBUser,
-    password : DBPassword,
-    database : DBDatabase
-});
+// let pool = mysql.createPool({
+//     connectionLimit : 10,
+//     host : DBHost,
+//     username : DBUser,
+//     password : DBPassword,
+//     database : DBDatabase,
+//     JAWDB_URL: JAWDB_URL
+// });
 
-var getConnection = function(callback) {
-    pool.getConnection(function(err, connection) {
-        callback(err, connection);
-    });
-};
+// var getConnection = function(callback) {
+//     pool.getConnection(function(err, connection) {
+//         callback(err, connection);
+//     });
+// };
 
-module.exports = getConnection;
+
 
 // pool.query = util.promisify(pool.query);
+
+module.exports = connection;
 
