@@ -17,3 +17,11 @@ exports.create = async (req, res, next) => {
 exports.mainPage = async (req, res, next) => {
     res.render('reviews');
 };
+
+exports.delete = async (req, res, next) => {
+
+};
+
+exports.edit = async (req, res, next) => {
+    res.render('edit-review');
+};

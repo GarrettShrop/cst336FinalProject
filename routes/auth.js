@@ -10,6 +10,8 @@ router.get('/create-account', authController.createAccount);
 
 router.post('/create', authController.createAccountlogic);
 
+router.delete('/delete', authController.deleteAccount);
+
 // router.get('/create', authController.createAccountGET);
 // router.post('/login', authController.loginPOST);
 

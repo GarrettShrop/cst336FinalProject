@@ -34,6 +34,13 @@ exports.createAccountlogic = async (req, res, next) => {
     res.redirect('/');
 };
 
+exports.deleteAccount = async(req, res, next) => {
+
+};
+
+exports.updateAccount = async(req, res, next) => {
+    res.render('update-account');
+};
 
 exports.loginGET = async (req, res, next) => {
     try {
