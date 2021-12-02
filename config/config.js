@@ -6,4 +6,5 @@ module.exports = {
     DBUser:     process.env.DBUSER,
     DBPassword: process.env.DBPASSWORD,
     DBDatabase: process.env.DATABASE,
+    JAWDB_URL: process.env.JAWDB_URL,
   };

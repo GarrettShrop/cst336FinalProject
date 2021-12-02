@@ -4,11 +4,12 @@ const router = express.Router();
 const authController = require('../controllers/authController');
 
 
-router.get('/create-account', authController.createAccount);
+router.get('/create-account', authController.createAccountPage);
 
-// router.post('/create-account', something);
 
-router.post('/create', authController.createAccountlogic);
+router.post('/create-account', authController.createAccount);
+
+// router.post('/create', authController.createAccountlogic);
 
 // router.get('/create', authController.createAccountGET);
 // router.post('/login', authController.loginPOST);
