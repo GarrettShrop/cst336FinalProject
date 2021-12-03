@@ -35,3 +35,20 @@ git push origin master
 
 Step 4:
 Make sure to go back to your own branch when you're done - git checkout {your branch name}
+
+### To pull from master
+
+Step 1:
+Be in your branch - git checkout {your branch name}
+
+Step 2:
+git pull origin master
+
+Step 3:
+git status (terminal should say you are ahead of your branch, make sure you are on YOUR branch)
+
+Step 4:
+You may have to run git pull, or handle some merge conflicts.
+
+Step 5:
+git push
