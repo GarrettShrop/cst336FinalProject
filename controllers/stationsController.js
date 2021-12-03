@@ -40,20 +40,23 @@ exports.createStationPage = async (req, res, next) => {
 };
 
 exports.create = async (req, res, next) => {
-    const address = req.body.address;
-    const brand = req.body.brand;
-    const regular = req.body.regular;
-    const super_fuel = req.body.super;
-    const premium = req.body.premium;
-    const diesel = req.body.diesel;
-    connection.connect();
+    try {
+        const address = req.body.address;
+        const brand = req.body.brand;
+        const regular = req.body.regular;
+        const super_fuel = req.body.super;
+        const premium = req.body.premium;
+        const diesel = req.body.diesel;
 
-    const post = {address: address, brand: brand, regular: regular, super: super_fuel, premium: premium, diesel: diesel, datetime: NOW()};
-    const result = await connection.query('INSERT INTO stations SET ?', post);
+        const post = {address: address, brand: brand, regular: regular, super: super_fuel, premium: premium, diesel: diesel, lastUpdated: Date.now()};
+        const result = await pool.query('INSERT INTO stations SET ?', post);
 
-    connection.end();
 
-    res.redirect('/');
+        res.redirect('/');
+    } catch (error) {
+        next(error);
+    }
+    
 };
 
 exports.delete = async (req, res, next) => {

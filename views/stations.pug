@@ -24,7 +24,17 @@ block content
     div(class='center')
       h2 Gas Stations 
       div
-        ul(class='list-group')
-          li(class='list-group-item')
-            p Station Name 
-            button Price and Location
+      ul 
+        each station in stations 
+          li= station.address
+          
+
+      
+        //- div.row
+        //-   div.col-sm-6.text-left.text-muted= station.address
+        //-   div.col-sm-6.text-left.text-muted= station.brand
+        //-   div.col-sm-6.text-left.text-muted= station.regular
+        //- ul(class='list-group')
+        //-   li(class='list-group-item')
+        //-     p station.address 
+        //-     button Price and Location
