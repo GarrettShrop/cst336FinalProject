@@ -14,7 +14,7 @@ router.post('/create-account', authController.createAccount);
 router.delete('/delete', authController.deleteAccount);
 
 // router.get('/create', authController.createAccountGET);
-// router.post('/login', authController.loginPOST);
+router.post('/login', authController.checkLoginInfo);
 
 router.get('/login', authController.loginGET);
 

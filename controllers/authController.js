@@ -1,14 +1,33 @@
-//const pool = require('../config/mySqlConnector');
 const bcrypt = require('bcrypt');
 const { response } = require('express');
-const saltRounds = 10;
+const saltRounds = 13;
 const pool = require('../config/mySqlConnector')
 
 
-// const checkLoginInfo = async (username, password) => {
-//     if (username.length < 1) {
+exports.checkLoginInfo = async (req, res, next) => {
+    try {
+      const username = req.body.username;
+      const password = req.body.password;
+      sqlString = "SELECT * FROM users WHERE username LIKE ?";
+      const result = await pool.query(sqlString, username);
+      if (result.length === 0){
+        return res.render('login',{loginError: "Invalid Credentials"})
+      }
 
-//     }
+      const user = result[0];
+      let correctPass = await bcrypt.compare(password, user.password)
+      if(correctPass){
+        res.redirect('/',{loginSuccess: "successfully logged In"})
+      }
+      else {
+        return res.render('login',{loginError: "Invalid Credentials"})
+      }
+
+      
+    } catch (error) {
+      
+    }
+}
 
 exports.createAccountPage = async (req, res, next) => {
   try {
@@ -21,6 +40,7 @@ exports.createAccountPage = async (req, res, next) => {
 
 exports.createAccount = async (req, res, next) => {
   try {
+    // add in where password has to be more than 8 characters
     const username = req.body.username;
     const password = req.body.password;
     const hash = await bcrypt.hash(password, saltRounds);
