@@ -4,7 +4,11 @@ const connection = require('../config/mySqlConnector')
 
 
 exports.stationsPage = async (req, res, next) => {
-    res.render('stations');
+    connection.connect();
+    const sqlString = 'SELECT * FROM stations';
+    const result = await connection.query(sqlString);
+    res.render('stations', {"stations": result});
+    connection.end();
 };
 
 exports.createStationPage = async (req, res, next) => {

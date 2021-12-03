@@ -30,6 +30,8 @@ exports.createAccount = async (req, res, next) => {
     const post = { username: username, password: hash };
     const result = await connection.query('INSERT INTO users SET ?', post);
 
+    connection.end();
+
 
 
     res.redirect('/');
