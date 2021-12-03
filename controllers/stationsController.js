@@ -7,7 +7,7 @@ exports.stationsPage = async (req, res, next) => {
     connection.connect();
     const sqlString = 'SELECT * FROM stations';
     const result = await connection.query(sqlString);
-    res.render('stations', {"stations": result});
+    res.render('stations', {stations: result});
     connection.end();
 };
 
