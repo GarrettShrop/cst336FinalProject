@@ -1,8 +1,8 @@
 //const pool = require('../config/mySqlConnector');
 const bcrypt = require('bcrypt');
+const { response } = require('express');
 const saltRounds = 10;
-//var createConnection = require('../config/mySqlConnector');
-const connection = require('../config/mySqlConnector')
+const pool = require('../config/mySqlConnector')
 
 
 // const checkLoginInfo = async (username, password) => {
@@ -20,21 +20,17 @@ exports.createAccountPage = async (req, res, next) => {
 };
 
 exports.createAccount = async (req, res, next) => {
+  try {
     const username = req.body.username;
     const password = req.body.password;
-
     const hash = await bcrypt.hash(password, saltRounds);
-    console.log("inside create account function")
-    connection.connect();
-    
     const post = { username: username, password: hash };
-    const result = await connection.query('INSERT INTO users SET ?', post);
-
-    connection.end();
-
-
-
+    await pool.query('INSERT INTO users SET ?', post);
     res.redirect('/');
+  } catch (error) {
+    res.sendStatus(400)
+  }
+
 };
 
 exports.deleteAccount = async(req, res, next) => {

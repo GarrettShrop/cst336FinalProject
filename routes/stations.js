@@ -7,12 +7,14 @@ const {createStation} = require("../controllers/stationsController");
 
 router.get('/', stationsController.stationsPage);
 
+router.get('/station/:id', stationsController.stationPage);
+
 router.get('/create-station', stationsController.createStationPage);
 
 router.post('/create', stationsController.create);
 
-router.delete('/delete', stationsController.delete);
+// router.post('/station/:id', stationsController.delete);
 
-router.patch('/update', stationsController.update);
+router.post('/update', stationsController.update);
 
 module.exports=router
