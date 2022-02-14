@@ -3,7 +3,7 @@ const util = require('util');
 const {DBHost, DBUser, DBPassword, DBDatabase,JAWSDB_URL} = require('./config');
 
 let pool = mysql.createPool({
-    connectionLimit : 1,
+    connectionLimit : 10,
     host : DBHost,
     user : DBUser,
     password : DBPassword,
