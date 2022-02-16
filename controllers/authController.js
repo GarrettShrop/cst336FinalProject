@@ -68,3 +68,30 @@ exports.loginGET = async (req, res, next) => {
       next(err);
     }
   };
+
+  exports.checkLoginInfo = async (req,res,next) => {
+    let username = req.body.username;
+    let password = req.body.pwd;
+
+    let passwordHash = "";
+
+    let sql = `SELECT * FROM users WHERE username = ?`;
+
+    let data = await pool.query(sql, [username]);
+
+    if (data.length > 0) {
+      passwordHash = data[0].password;
+    }
+    console.log("inside post check login info func")
+    const match = await bcrypt.compare(password, passwordHash);
+    if (match) {
+      console.log("inside match if statement")
+      // req.session.authenticated = true;
+      // req.session.username = username;
+      // req.session.userID = data[0].id;
+      res.redirect("/");
+    }
+    else {
+      res.render("login", { "error": "Error: Invalid credentials!" });
+    }
+  };
