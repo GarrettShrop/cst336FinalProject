@@ -8,6 +8,7 @@ exports.stationsPage = async (req, res, next) => {
         const sqlString = 'SELECT * FROM stations';
         const result = await pool.query(sqlString);
         res.render('stations', {stations: result});
+
     } catch (error) {
         next(error);
     }
@@ -60,6 +61,17 @@ exports.create = async (req, res, next) => {
 };
 
 exports.delete = async (req, res, next) => {
+try {
+    let station = req.body.stationId;
+    // need to change req.session.userID to use JWT as final product
+    let sql = `DELETE FROM favorites WHERE userId = ${req.session.userID} AND stationId = ${station}`;
+
+    result = await pool.query(sql);
+    res.redirect('/profile');
+
+} catch (error){
+    next(error);
+}
 
 };
 

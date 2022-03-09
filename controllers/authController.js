@@ -1,33 +1,57 @@
 const bcrypt = require('bcrypt');
 const { response } = require('express');
-const saltRounds = 13;
+const {TokenSecret, SaltRounds} = require('../config/config');
 const pool = require('../config/mySqlConnector')
+const jwt = require('jsonwebtoken')
 
 
-exports.checkLoginInfo = async (req, res, next) => {
-    try {
-      const username = req.body.username;
-      const password = req.body.password;
-      sqlString = "SELECT * FROM users WHERE username LIKE ?";
-      const result = await pool.query(sqlString, username);
-      if (result.length === 0){
-        return res.render('login',{loginError: "Invalid Credentials"})
-      }
 
-      const user = result[0];
-      let correctPass = await bcrypt.compare(password, user.password)
-      if(correctPass){
-        res.redirect('/',{loginSuccess: "successfully logged In"})
-      }
-      else {
-        return res.render('login',{loginError: "Invalid Credentials"})
-      }
+const makeToken = async (res, user_id, username ) => {
+  const token = jwt.sign(
+    {user_id, username},
+    TokenSecret,
+    { expiresIn: '7d' }
+  );
+  res.cookie(
+    'token',
+    token,
+    { expires: new Date(Date.now() + 8 * 360000),
+      secure: true,
+      httpOnly: true,
+  },
+  );
+};
+
+exports.profile = async (req, res, next) => {
+  
+};
+
+
+
+// exports.checkLoginInfo = async (req, res, next) => {
+//     try {
+//       const username = req.body.username;
+//       const password = req.body.password;
+//       sqlString = "SELECT * FROM users WHERE username LIKE ?";
+//       const result = await pool.query(sqlString, username);
+//       if (result.length === 0){
+//         return res.render('login',{loginError: "Invalid Credentials"})
+//       }
+
+//       const user = result[0];
+//       let correctPass = await bcrypt.compare(password, user.password)
+//       if(correctPass){
+//         res.redirect('/',{loginSuccess: "successfully logged In"})
+//       }
+//       else {
+//         return res.render('login',{loginError: "Invalid Credentials"})
+//       }
 
       
-    } catch (error) {
+//     } catch (error) {
       
-    }
-}
+//     }
+// }
 
 exports.createAccountPage = async (req, res, next) => {
   try {
@@ -43,7 +67,7 @@ exports.createAccount = async (req, res, next) => {
     // add in where password has to be more than 8 characters
     const username = req.body.username;
     const password = req.body.password;
-    const hash = await bcrypt.hash(password, saltRounds);
+    const hash = await bcrypt.hash(password, SaltRounds);
     const post = { username: username, password: hash };
     await pool.query('INSERT INTO users SET ?', post);
     res.redirect('/');
@@ -79,13 +103,14 @@ exports.loginGET = async (req, res, next) => {
 
     let data = await pool.query(sql, [username]);
 
-    if (data.length > 0) {
-      passwordHash = data[0].password;
+    if (data.length === 0) {
+      return res.render("login", { "error": "Error: Invalid credentials!" });
     }
     console.log("inside post check login info func")
-    const match = await bcrypt.compare(password, passwordHash);
+    const user = data[0]
+    let match = await bcrypt.compare(password, user.password);
     if (match) {
-      console.log("inside match if statement")
+      await makeToken(res, user.id, user.username);
       // req.session.authenticated = true;
       // req.session.username = username;
       // req.session.userID = data[0].id;

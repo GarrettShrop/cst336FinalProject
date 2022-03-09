@@ -18,6 +18,8 @@ router.post('/login', authController.checkLoginInfo);
 
 router.get('/login', authController.loginGET);
 
+router.get('/profile', authController.profile);
+
 // router.post('/logout', authController.logout);
 
 module.exports=router
