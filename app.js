@@ -26,9 +26,9 @@ app.use('/reviews', reviewRouter)
 app.use('/', stationsRouter);
 app.use ('/auth', authRouter);
 
-// app.listen(3000, function() {
-//   console.log("Server is running on port " + 3000);
-// });
+app.listen(3000, function() {
+  console.log("Server is running on port " + 3000);
+});
 
 // app.use('/users', usersRouter);
 

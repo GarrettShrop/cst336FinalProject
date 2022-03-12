@@ -11,7 +11,7 @@ block content
   nav(id='navbar') 
     a(href="/auth/login", class='navbtn') Login 
     //- needs to be hidden unless logged in. Some kind of if statement needs to be used to check if logged in.
-    a(href="", class='navbtn') Logout 
+    a(href="/auth/logout", class='navbtn') Logout 
     //-------------------------------------------
     a(href="/auth/create-account", class='navbtn') Create an Account
     a(href="/", class='navbtn') Home
@@ -19,6 +19,16 @@ block content
     a(href="", class='navbtn') Profile
     a(href="/create-station", class='navbtn') Add a Station
     //-------------------------------------------
+
+    div(class='log')
+      // if username
+      form#logoutForm(action='/auth/logout' method='POST')
+          small= username
+          button.logoutText(type='submit') Log Out
+              i(class="fas fa-sign-out-alt")
+
+
+
 
   main 
     div(class='center')

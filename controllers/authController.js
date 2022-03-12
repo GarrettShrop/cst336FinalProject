@@ -12,6 +12,7 @@ const makeToken = async (res, user_id, username ) => {
     TokenSecret,
     { expiresIn: '7d' }
   );
+  console.log(token)
   res.cookie(
     'token',
     token,
@@ -26,6 +27,24 @@ exports.profile = async (req, res, next) => {
   
 };
 
+exports.verifyToken = async (req, res, next) => {
+  try{
+    console.log(req.cookies)
+    const token = req.cookies.token || '';
+    if(!token) {
+      res.redirect('/');
+    }
+    const identity = await jwt.verify(token, TokenSecret);
+    req.identity = {
+      id: identity.id,
+      username: identity.username,
+
+    };
+
+  } catch (err) {
+    next(err);
+  }
+};
 
 
 // exports.checkLoginInfo = async (req, res, next) => {
@@ -102,21 +121,40 @@ exports.loginGET = async (req, res, next) => {
     let sql = `SELECT * FROM users WHERE username = ?`;
 
     let data = await pool.query(sql, [username]);
-
+    
     if (data.length === 0) {
       return res.render("login", { "error": "Error: Invalid credentials!" });
     }
-    console.log("inside post check login info func")
+    
     const user = data[0]
+    
+    
     let match = await bcrypt.compare(password, user.password);
+    
     if (match) {
       await makeToken(res, user.id, user.username);
       // req.session.authenticated = true;
       // req.session.username = username;
       // req.session.userID = data[0].id;
+      
       res.redirect("/");
     }
     else {
       res.render("login", { "error": "Error: Invalid credentials!" });
     }
   };
+  exports.logoutPOST = async (req, res, next) => {
+    try {
+      res.locals.username = null;
+      res.clearCookie('token',
+      { 
+        expires: new Date(Date.now() + 8 * 3600000),
+        secure: false, // TODO switch to true with https
+        httpOnly: true,
+      })
+      res.redirect('/');
+    } catch (err) {
+      next(err);
+    }
+  };
+  

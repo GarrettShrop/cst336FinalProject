@@ -1,6 +1,5 @@
 const express = require('express');
 const router = express.Router();
-
 const authController = require('../controllers/authController');
 
 
@@ -19,7 +18,8 @@ router.post('/login', authController.checkLoginInfo);
 router.get('/login', authController.loginGET);
 
 router.get('/profile', authController.profile);
+// need to add function to logout and pass in veerify token to make sure user is logged in
 
-// router.post('/logout', authController.logout);
+router.post('/logout', [ authController.verifyToken, authController.logoutPOST]);
 
 module.exports=router
