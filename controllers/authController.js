@@ -38,6 +38,7 @@ exports.verifyToken = async (req, res, next) => {
     req.identity = {
       id: identity.id,
       username: identity.username,
+      
 
     };
 
