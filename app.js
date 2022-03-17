@@ -1,6 +1,7 @@
 const createError = require('http-errors');
 var express = require('express');
 var path = require('path');
+const bodyParser = require('body-parser');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
@@ -23,8 +24,21 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/reviews', reviewRouter)
-app.use('/', stationsRouter);
+app.use('/stations', stationsRouter);
 app.use ('/auth', authRouter);
+
+//testing
+app.get("/users",(req, res) => {
+  res.json([{
+    id: 1,
+    name: "ster",
+    password: 'town'
+  }, {
+    id: 2,
+    name: "JKL",
+    password: 'RL'
+  }]);
+})
 
 app.listen(9000, function() {
   console.log("Server is running on port " + 9000);

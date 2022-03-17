@@ -90,7 +90,8 @@ exports.createAccount = async (req, res, next) => {
     const hash = await bcrypt.hash(password, SaltRounds);
     const post = { username: username, password: hash };
     await pool.query('INSERT INTO users SET ?', post);
-    res.redirect('/');
+    await makeToken(res, user.id, user.username);
+    res.status(201).json("Account Created!");
   } catch (error) {
     res.sendStatus(400)
   }
